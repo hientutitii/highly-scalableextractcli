@@ -1,30 +1,28 @@
 function numIslands(grid) {
-  if (grid.length === 0 || grid[0].length === 0) return 0;
-  const rows = grid.length;
-  const cols = grid[0].length;
-  let islands = 0;
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
+  if (grid.length === 0) return 0;
+  let count = 0;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
       if (grid[i][j] === "1") {
-        islands++;
-        dfs(i, j);
+        dfs(grid, i, j);
+        count++;
       }
     }
   }
-  return islands;
-  function dfs(row, col) {
-    if (
-      row < 0 ||
-      row >= rows ||
-      col < 0 ||
-      col >= cols ||
-      grid[row][col] !== "1"
-    )
-      return;
-    grid[row][col] = "0";
-    dfs(row + 1, col);
-    dfs(row - 1, col);
-    dfs(row, col + 1);
-    dfs(row, col - 1);
-  }
+  return count;
+}
+function dfs(grid, i, j) {
+  if (
+    i < 0 ||
+    i >= grid.length ||
+    j < 0 ||
+    j >= grid[0].length ||
+    grid[i][j] === "0"
+  )
+    return;
+  grid[i][j] = "0";
+  dfs(grid, i + 1, j);
+  dfs(grid, i - 1, j);
+  dfs(grid, i, j + 1);
+  dfs(grid, i, j - 1);
 }
