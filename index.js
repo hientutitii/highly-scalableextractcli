@@ -1,28 +1,17 @@
-function numIslands(grid) {
-  if (grid.length === 0) return 0;
-  let count = 0;
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[0].length; j++) {
-      if (grid[i][j] === "1") {
-        dfs(grid, i, j);
-        count++;
-      }
-    }
+function rotateRight(head, k) {
+  if (!head || k === 0) return head;
+  let length = 1;
+  let tail = head;
+  while (tail.next) {
+    length++;
+    tail = tail.next;
   }
-  return count;
-}
-function dfs(grid, i, j) {
-  if (
-    i < 0 ||
-    i >= grid.length ||
-    j < 0 ||
-    j >= grid[0].length ||
-    grid[i][j] === "0"
-  )
-    return;
-  grid[i][j] = "0";
-  dfs(grid, i + 1, j);
-  dfs(grid, i - 1, j);
-  dfs(grid, i, j + 1);
-  dfs(grid, i, j - 1);
+  k = k % length;
+  if (k === 0) return head;
+  let newTail = head;
+  for (let i = 1; i < length - k; i++) newTail = newTail.next;
+  const newHead = newTail.next;
+  newTail.next = null;
+  tail.next = head;
+  return newHead;
 }
