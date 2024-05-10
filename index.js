@@ -1,3 +1,1 @@
-function removeDuplicates(arr) {
-  return [...new Set(arr)];
-}
+const last = (arr) => arr[arr.length - 1];
